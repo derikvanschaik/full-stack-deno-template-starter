@@ -1,7 +1,7 @@
 const kv = await Deno.openKv();
 
 async function createDeck(deckname: string) {
-  await kv.set(["deck", deckname], [{}]);
+  await kv.set(["deck", deckname], []);
 }
 
 async function addToDeck(deckname: string, card: any) {
@@ -26,4 +26,9 @@ async function getDecks() {
   return entries;
 }
 
-export { createDeck, addToDeck, getDecks };
+async function getDeck(deckname: string) {
+  const deck = await kv.get(["deck", deckname]);
+  return deck;
+}
+
+export { createDeck, addToDeck, getDecks, getDeck };
